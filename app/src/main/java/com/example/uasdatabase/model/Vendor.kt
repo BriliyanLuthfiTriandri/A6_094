@@ -17,3 +17,11 @@ data class Vendor(
     val notlpVendor: String
 )
 
+@Serializable
+data class VendorResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Vendor
+)
+
+
