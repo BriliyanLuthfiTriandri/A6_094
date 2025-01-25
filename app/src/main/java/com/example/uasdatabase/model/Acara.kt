@@ -14,5 +14,11 @@ data class Acara(
     val status_acara: String,
 )
 
+@Serializable
+data class AcaraResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Acara
+)
 
 
