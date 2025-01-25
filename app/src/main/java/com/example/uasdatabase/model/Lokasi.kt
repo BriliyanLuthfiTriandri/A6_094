@@ -10,3 +10,9 @@ data class Lokasi(
     val kapasitas: String
 )
 
+@Serializable
+data class LokasiResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Lokasi
+)
