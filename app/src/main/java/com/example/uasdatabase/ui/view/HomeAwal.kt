@@ -35,6 +35,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uasdatabase.R
+import com.example.uasdatabase.ui.navigation.AlamatNavigasi
+
+object DestinasiAwal : AlamatNavigasi {
+    override val route = "home"
+    override val titleRes = " Home"
+}
 
 @Preview(showBackground = true)
 @Composable
