@@ -25,4 +25,44 @@ interface AppContainer {
     val VendorRepository: VendorRepository
 }
 
+class ContainerApp : AppContainer {
 
+    private val baseUrl = "http://10.0.2.2:3000/"
+    private val json = Json { ignoreUnknownKeys = true }
+    private val retrofit = Retrofit.Builder()
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        .baseUrl(baseUrl)
+        .build()
+
+    private val vendorService: VendorService by lazy {
+        retrofit.create(VendorService::class.java)
+    }
+
+    private val klienService: KlienService by lazy {
+        retrofit.create(KlienService::class.java)
+    }
+
+    private val lokasiService: LokasiService by lazy {
+        retrofit.create(LokasiService::class.java)
+    }
+
+    private val acaraService: AcaraService by lazy {
+        retrofit.create(AcaraService::class.java)
+    }
+
+    override val AcaraRepository: AcaraRepository by lazy {
+        NetworkAcaraRepository(acaraService)
+    }
+
+    override val VendorRepository: VendorRepository by lazy {
+        NetworkVendorRepository(vendorService)
+    }
+
+    override val LokasiRepository: LokasiRepository by lazy {
+        NetworkLokasiRepository(lokasiService)
+    }
+
+    override val KlienRepository: KlienRepository by lazy {
+        NetworkKlienRepository(klienService)
+    }
+}
