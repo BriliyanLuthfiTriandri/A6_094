@@ -24,4 +24,9 @@ data class VendorResponseDetail(
     val data: Vendor
 )
 
-
+@Serializable
+data class VendorResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Vendor>
+)
