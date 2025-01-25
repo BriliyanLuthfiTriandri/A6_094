@@ -16,3 +16,10 @@ data class LokasiResponseDetail(
     val message: String,
     val data: Lokasi
 )
+
+@Serializable
+data class LokasiResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Lokasi>
+)
