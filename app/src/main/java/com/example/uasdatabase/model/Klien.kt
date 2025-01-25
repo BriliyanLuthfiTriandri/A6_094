@@ -17,4 +17,9 @@ data class KlienResponseDetail(
     val data: Klien
 )
 
-
+@Serializable
+data class KlienResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Klien>
+)
