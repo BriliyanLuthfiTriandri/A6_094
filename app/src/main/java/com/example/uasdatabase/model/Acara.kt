@@ -21,4 +21,11 @@ data class AcaraResponseDetail(
     val data: Acara
 )
 
+@Serializable
+data class AcaraResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Acara>
+)
+
 
