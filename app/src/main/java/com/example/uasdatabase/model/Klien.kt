@@ -10,3 +10,11 @@ data class Klien(
     val notlp_klien: String
 )
 
+@Serializable
+data class KlienResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Klien
+)
+
+
