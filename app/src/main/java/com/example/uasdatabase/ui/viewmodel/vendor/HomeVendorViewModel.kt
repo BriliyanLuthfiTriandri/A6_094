@@ -17,3 +17,37 @@ sealed class HomeUiStateVendor {
     object Loading : HomeUiStateVendor()
 }
 
+class HomeVendorViewModel(private val vendorRepository: VendorRepository) : ViewModel() {
+    var vendorUIState: HomeUiStateVendor by mutableStateOf(HomeUiStateVendor.Loading)
+        private set
+
+    init {
+        getVendor()
+    }
+
+    fun getVendor() {
+        viewModelScope.launch {
+            vendorUIState = HomeUiStateVendor.Loading
+            vendorUIState = try {
+                HomeUiStateVendor.Success(vendorRepository.getVendor().data)
+            } catch (e: IOException) {
+                HomeUiStateVendor.Error
+            } catch (e: HttpException) {
+                HomeUiStateVendor.Error
+            }
+        }
+    }
+
+    fun deleteVendor(idVendor: Int) {
+        viewModelScope.launch {
+            try {
+                vendorRepository.deleteVendor(idVendor)
+                getVendor()
+            } catch (e: IOException) {
+                vendorUIState = HomeUiStateVendor.Error
+            } catch (e: HttpException) {
+                vendorUIState = HomeUiStateVendor.Error
+            }
+        }
+    }
+}
