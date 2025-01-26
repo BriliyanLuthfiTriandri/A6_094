@@ -11,6 +11,14 @@ import kotlinx.coroutines.launch
 
 
 
+fun InsertVendorUiEvent.toVendor(): Vendor = Vendor(
+    idVendor = idVendor, // Memastikan idVendor diteruskan dengan benar
+    namaVendor = namaVendor,
+    jenisVendor = jenisVendor,
+    emailVendor = emailVendor,
+    notlpVendor = notlpVendor
+)
+
 fun Vendor.toUiStateVendor(): InsertVendorUiState = InsertVendorUiState(
     insertUiEvent = toInsertVendorUiEvent()
 )
