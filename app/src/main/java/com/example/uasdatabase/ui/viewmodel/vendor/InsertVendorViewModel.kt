@@ -9,6 +9,26 @@ import com.example.uasdatabase.model.Vendor
 import com.example.uasdatabase.repository.VendorRepository
 import kotlinx.coroutines.launch
 
+class InsertVendorViewModel(private val vendorRepository: VendorRepository) : ViewModel() {
+    var uiState by mutableStateOf(InsertVendorUiState())
+        private set
+
+    fun updateInsertVendorState(insertUiEvent: InsertVendorUiEvent) {
+        uiState = InsertVendorUiState(
+            insertUiEvent = insertUiEvent
+        )
+    }
+
+    fun insertVendor() {
+        viewModelScope.launch {
+            try {
+                vendorRepository.insertVendor(uiState.insertUiEvent.toVendor())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 data class InsertVendorUiState(
     val insertUiEvent: InsertVendorUiEvent = InsertVendorUiEvent(),
