@@ -11,6 +11,16 @@ import kotlinx.coroutines.launch
 
 
 
+data class DetailVendorUiState(
+    val detailUiEvent: InsertVendorUiEvent = InsertVendorUiEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = ""
+) {
+    val isUiEventNotEmpty: Boolean
+        get() = detailUiEvent != InsertVendorUiEvent()
+}
+
 fun Vendor.toDetailVendorUiEvent(): InsertVendorUiEvent {
     return InsertVendorUiEvent(
         idVendor = idVendor,
