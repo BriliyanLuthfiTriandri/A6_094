@@ -9,7 +9,27 @@ import com.example.uasdatabase.model.Vendor
 import com.example.uasdatabase.repository.VendorRepository
 import kotlinx.coroutines.launch
 
+class DetailVendorViewModel(private val vendorRepository: VendorRepository) : ViewModel() {
 
+    var uiState by mutableStateOf(DetailVendorUiState())
+        private set
+
+    fun fetchDetailVendor(idVendor: Int) {
+        viewModelScope.launch {
+            uiState = DetailVendorUiState(isLoading = true)
+            try {
+                val vendor = vendorRepository.getVendorById(idVendor)
+                uiState = DetailVendorUiState(detailUiEvent = vendor.data.toDetailVendorUiEvent())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                uiState = DetailVendorUiState(
+                    isError = true,
+                    errorMessage = "Failed to fetch vendor details: ${e.message}"
+                )
+            }
+        }
+    }
+}
 
 data class DetailVendorUiState(
     val detailUiEvent: InsertVendorUiEvent = InsertVendorUiEvent(),
