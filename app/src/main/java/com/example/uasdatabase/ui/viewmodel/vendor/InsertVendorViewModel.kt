@@ -10,6 +10,10 @@ import com.example.uasdatabase.repository.VendorRepository
 import kotlinx.coroutines.launch
 
 
+data class InsertVendorUiState(
+    val insertUiEvent: InsertVendorUiEvent = InsertVendorUiEvent(),
+)
+
 data class InsertVendorUiEvent(
     val idVendor: Int = 0,
     val namaVendor: String = "",
