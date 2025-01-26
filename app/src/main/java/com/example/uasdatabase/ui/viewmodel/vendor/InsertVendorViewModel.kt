@@ -10,6 +10,13 @@ import com.example.uasdatabase.repository.VendorRepository
 import kotlinx.coroutines.launch
 
 
+data class InsertVendorUiEvent(
+    val idVendor: Int = 0,
+    val namaVendor: String = "",
+    val jenisVendor: String = "",
+    val emailVendor: String = "",
+    val notlpVendor: String = ""
+)
 
 fun InsertVendorUiEvent.toVendor(): Vendor = Vendor(
     idVendor = idVendor, // Memastikan idVendor diteruskan dengan benar
