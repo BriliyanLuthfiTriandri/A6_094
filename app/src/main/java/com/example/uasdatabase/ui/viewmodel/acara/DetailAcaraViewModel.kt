@@ -9,6 +9,29 @@ import com.example.uasdatabase.model.Acara
 import com.example.uasdatabase.repository.AcaraRepository
 import kotlinx.coroutines.launch
 
+class DetailAcaraViewModel(private val acaraRepository: AcaraRepository) : ViewModel() {
+
+    var uiState by mutableStateOf(DetailAcaraUiState())
+        private set
+
+    fun fetchDetailAcara(idAcara: Int) {
+        viewModelScope.launch {
+            uiState = DetailAcaraUiState(isLoading = true)
+            try {
+                val acaraResponse = acaraRepository.getAcaraById(idAcara)
+                uiState =
+                    DetailAcaraUiState(detailUiEvent = acaraResponse.data.toDetailAcaraUiEvent())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                uiState = DetailAcaraUiState(
+                    isError = true,
+                    errorMessage = "Failed to fetch acara details: ${e.message}"
+                )
+            }
+        }
+    }
+
+}
 
 data class DetailAcaraUiState(
     val detailUiEvent: InsertAcaraUiEvent = InsertAcaraUiEvent(),
