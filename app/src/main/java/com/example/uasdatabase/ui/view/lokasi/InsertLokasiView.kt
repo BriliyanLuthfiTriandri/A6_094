@@ -25,6 +25,49 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.InsertLokasiViewModel
 import kotlinx.coroutines.launch
 
 
+@Composable
+fun EntryLokasiBody(
+    insertUiState: InsertLokasiUiState,
+    onLokasiValueChange: (InsertLokasiUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var formValid by remember { mutableStateOf(true) }
+    var showValidationMessage by remember { mutableStateOf(false) }
+
+    val isFormValid = validateForm(insertUiState.insertUiEvent)
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp), modifier = modifier.padding(12.dp)
+    ) {
+        FormLokasiInput(
+            insertUiEvent = insertUiState.insertUiEvent,
+            onValueChange = onLokasiValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            isFormValid = isFormValid,
+            showValidationMessage = showValidationMessage
+        )
+
+        Button(
+            onClick = {
+                if (isFormValid) {
+                    onSaveClick()
+                } else {
+                    formValid = false
+                    showValidationMessage = true
+                }
+            },
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF91A4),
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = "Simpan")
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
