@@ -53,6 +53,37 @@ import com.example.uasdatabase.ui.viewmodel.vendor.HomeVendorViewModel
 
 
 
+@Composable
+fun HomeVendorStatus(
+    vendorUiState: HomeUiStateVendor,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteVendor: (Int) -> Unit = {},
+    onDetailVendor: (Int) -> Unit,
+    onEditVendor: (Int) -> Unit
+) {
+    when (vendorUiState) {
+        is HomeUiStateVendor.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+        is HomeUiStateVendor.Success -> {
+            if (vendorUiState.vendors.isEmpty()) {
+                Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(text = "Tidak ada data Vendor")
+                }
+            } else {
+                VendorLayout(
+                    vendors = vendorUiState.vendors,
+                    modifier = modifier.fillMaxWidth(),
+                    onDetailVendor = onDetailVendor,
+                    onDeleteVendor = onDeleteVendor,
+                    onEditVendor = onEditVendor
+                )
+            }
+        }
+        is HomeUiStateVendor.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
+
 
 @Composable
 fun OnLoading(modifier: Modifier = Modifier) {
