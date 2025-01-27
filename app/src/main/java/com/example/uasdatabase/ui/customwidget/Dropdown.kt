@@ -20,6 +20,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.material.icons.filled.Place
 
 
+data class Dropdown(
+    val id : Int,
+    val label: String
+)
+
+enum class IconType {
+    FACE,
+    PLACE
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
