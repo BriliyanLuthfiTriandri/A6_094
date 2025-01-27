@@ -24,6 +24,10 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.InsertLokasiUiState
 import com.example.uasdatabase.ui.viewmodel.lokasi.InsertLokasiViewModel
 import kotlinx.coroutines.launch
 
+object DestinasiEntryLokasi : AlamatNavigasi {
+    override val route = "itemLokasi"
+    override val titleRes = "Entry Lokasi"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
