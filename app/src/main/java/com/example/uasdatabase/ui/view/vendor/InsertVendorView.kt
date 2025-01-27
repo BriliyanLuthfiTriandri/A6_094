@@ -46,6 +46,12 @@ import com.example.uasdatabase.ui.viewmodel.vendor.InsertVendorUiState
 import com.example.uasdatabase.ui.viewmodel.vendor.InsertVendorViewModel
 import kotlinx.coroutines.launch
 
+fun validateForm(insertUiEvent: InsertVendorUiEvent): Boolean {
+    return insertUiEvent.namaVendor.isNotEmpty() &&
+            insertUiEvent.jenisVendor.isNotEmpty() &&
+            insertUiEvent.emailVendor.isNotEmpty() &&
+            insertUiEvent.notlpVendor.isNotEmpty()
+}
 
 @Composable
 fun EntryVendorBody(
