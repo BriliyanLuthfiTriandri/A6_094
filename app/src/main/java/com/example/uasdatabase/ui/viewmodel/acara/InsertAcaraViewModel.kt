@@ -10,6 +10,9 @@ import com.example.uasdatabase.repository.AcaraRepository
 import kotlinx.coroutines.launch
 
 
+fun Acara.toUiStateAcara(): InsertAcaraUiState = InsertAcaraUiState(
+    insertUiEvent = toInsertAcaraUiEvent()
+)
 
 fun Acara.toInsertAcaraUiEvent(): InsertAcaraUiEvent = InsertAcaraUiEvent(
     id_acara = id_acara,
