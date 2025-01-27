@@ -9,7 +9,27 @@ import com.example.uasdatabase.model.Acara
 import com.example.uasdatabase.repository.AcaraRepository
 import kotlinx.coroutines.launch
 
+class InsertAcaraViewModel(private val acaraRepository: AcaraRepository
+) : ViewModel() {
+    var uiState by mutableStateOf(InsertAcaraUiState())
+        private set
 
+    fun updateInsertAcaraState(insertUiEvent: InsertAcaraUiEvent) {
+        uiState = InsertAcaraUiState(
+            insertUiEvent = insertUiEvent
+        )
+    }
+
+    fun insertAcara() {
+        viewModelScope.launch {
+            try {
+                acaraRepository.insertAcara(uiState.insertUiEvent.toAcara())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 data class InsertAcaraUiState(
     val insertUiEvent: InsertAcaraUiEvent = InsertAcaraUiEvent(),
