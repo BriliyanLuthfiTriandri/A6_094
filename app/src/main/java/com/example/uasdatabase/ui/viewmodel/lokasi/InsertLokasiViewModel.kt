@@ -9,6 +9,26 @@ import com.example.uasdatabase.model.Lokasi
 import com.example.uasdatabase.repository.LokasiRepository
 import kotlinx.coroutines.launch
 
+class InsertLokasiViewModel(private val lokasiRepository: LokasiRepository) : ViewModel() {
+    var uiState by mutableStateOf(InsertLokasiUiState())
+        private set
+
+    fun updateInsertLokasiState(insertUiEvent: InsertLokasiUiEvent) {
+        uiState = InsertLokasiUiState(
+            insertUiEvent = insertUiEvent
+        )
+    }
+
+    fun insertLokasi() {
+        viewModelScope.launch {
+            try {
+                lokasiRepository.insertLokasi(uiState.insertUiEvent.toLokasi())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 data class InsertLokasiUiState(
     val insertUiEvent: InsertLokasiUiEvent = InsertLokasiUiEvent(),
