@@ -51,6 +51,30 @@ import com.example.uasdatabase.ui.viewmodel.vendor.HomeUiStateVendor
 import com.example.uasdatabase.ui.viewmodel.vendor.HomeVendorViewModel
 
 
+@Composable
+fun VendorLayout(
+    vendors: List<Vendor>,
+    modifier: Modifier = Modifier,
+    onDetailVendor: (Int) -> Unit,
+    onDeleteVendor: (Int) -> Unit,
+    onEditVendor: (Int) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(vendors) { vendor ->
+            VendorCard(
+                vendor = vendor,
+                onDeleteVendor = { onDeleteVendor(vendor.idVendor) },
+                onDetailVendor = { onDetailVendor(vendor.idVendor) },
+                onEditVendor = { onEditVendor(vendor.idVendor) }
+            )
+        }
+    }
+}
+
 
 
 
