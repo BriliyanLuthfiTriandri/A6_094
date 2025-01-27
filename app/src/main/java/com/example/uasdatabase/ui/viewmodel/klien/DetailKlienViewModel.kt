@@ -11,6 +11,16 @@ import kotlinx.coroutines.launch
 
 
 
+data class DetailKlienUiState(
+    val detailUiEvent: InsertKlienUiEvent = InsertKlienUiEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = ""
+) {
+    val isUiEventNotEmpty: Boolean
+        get() = detailUiEvent != InsertKlienUiEvent()
+}
+
 fun Klien.toDetailKlienUiEvent(): InsertKlienUiEvent {
     return InsertKlienUiEvent(
         id_klien = id_klien,
