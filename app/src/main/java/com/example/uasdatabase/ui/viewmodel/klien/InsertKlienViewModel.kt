@@ -9,7 +9,26 @@ import com.example.uasdatabase.model.Klien
 import com.example.uasdatabase.repository.KlienRepository
 import kotlinx.coroutines.launch
 
+class InsertKlienViewModel(private val klienRepository: KlienRepository) : ViewModel() {
+    var uiState by mutableStateOf(InsertKlienUiState())
+        private set
 
+    fun updateInsertKlienState(insertUiEvent: InsertKlienUiEvent) {
+        uiState = InsertKlienUiState(
+            insertUiEvent = insertUiEvent
+        )
+    }
+
+    fun insertKlien() {
+        viewModelScope.launch {
+            try {
+                klienRepository.insertKlien(uiState.insertUiEvent.toKlien())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 data class InsertKlienUiState(
     val insertUiEvent: InsertKlienUiEvent = InsertKlienUiEvent(),
