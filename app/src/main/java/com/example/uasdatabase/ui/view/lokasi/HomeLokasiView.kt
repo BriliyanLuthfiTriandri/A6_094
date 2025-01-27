@@ -28,6 +28,60 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.HomeLokasiViewModel
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreenLokasi(
+    navigateToItemEntryLokasi: () -> Unit,
+    navigateBack: () -> Unit,
+    navigateToEditLokasi: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailLokasi: (Int) -> Unit,
+    viewModel: HomeLokasiViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomeLokasi.titleRes,
+                canNavigateBack = true,
+                showMenu = false,
+                showRefresh = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getLokasi()
+                },
+                navigateUp = navigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntryLokasi,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp),
+                containerColor = Color(0xFFFF91A4),
+                contentColor = Color.White
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Lokasi")
+            }
+        },
+    ) { innerPadding ->
+        HomeLokasiStatus(
+            lokasiUiState = viewModel.lokasiUIState,
+            retryAction = { viewModel.getLokasi() },
+            modifier = Modifier.padding(innerPadding),
+            onDetailLokasi = onDetailLokasi,
+            onDeleteLokasi = { lokasiId ->
+                viewModel.deleteLokasi(lokasiId)
+                viewModel.getLokasi()
+            },
+            onEditLokasi = navigateToEditLokasi
+        )
+    }
+}
+
+
+
 @Composable
 fun HomeLokasiStatus(
     lokasiUiState: HomeUiStateLokasi,
