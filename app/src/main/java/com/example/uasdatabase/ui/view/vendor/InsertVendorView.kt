@@ -46,7 +46,10 @@ import com.example.uasdatabase.ui.viewmodel.vendor.InsertVendorUiState
 import com.example.uasdatabase.ui.viewmodel.vendor.InsertVendorViewModel
 import kotlinx.coroutines.launch
 
-
+object DestinasiEntryVendor : AlamatNavigasi {
+    override val route = "itemVendor"
+    override val titleRes = "Entry Vendor"
+}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
