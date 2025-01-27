@@ -9,7 +9,27 @@ import com.example.uasdatabase.model.Klien
 import com.example.uasdatabase.repository.KlienRepository
 import kotlinx.coroutines.launch
 
+class DetailKlienViewModel(private val klienRepository: KlienRepository) : ViewModel() {
 
+    var uiState by mutableStateOf(DetailKlienUiState())
+        private set
+
+    fun fetchDetailKlien(idKlien: Int) {
+        viewModelScope.launch {
+            uiState = DetailKlienUiState(isLoading = true)
+            try {
+                val klienResponse = klienRepository.getKlienById(idKlien)
+                uiState = DetailKlienUiState(detailUiEvent = klienResponse.data.toDetailKlienUiEvent())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                uiState = DetailKlienUiState(
+                    isError = true,
+                    errorMessage = "Failed to fetch klien details: ${e.message}"
+                )
+            }
+        }
+    }
+}
 
 data class DetailKlienUiState(
     val detailUiEvent: InsertKlienUiEvent = InsertKlienUiEvent(),
