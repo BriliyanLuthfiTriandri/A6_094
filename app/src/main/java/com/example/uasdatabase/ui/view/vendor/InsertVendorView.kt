@@ -46,6 +46,47 @@ import com.example.uasdatabase.ui.viewmodel.vendor.InsertVendorUiState
 import com.example.uasdatabase.ui.viewmodel.vendor.InsertVendorViewModel
 import kotlinx.coroutines.launch
 
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryVendorScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertVendorViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+            CostumeTopAppBar(
+                title = "Entry Vendor",
+                canNavigateBack = true,
+                showMenu = false,
+                showRefresh = true,
+                scrollBehavior = scrollBehavior,
+                navigateUp = navigateBack
+            )
+        }
+    ) { innerPadding ->
+        EntryVendorBody(
+            insertUiState = viewModel.uiState,
+            onVendorValueChange = viewModel::updateInsertVendorState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.insertVendor()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
+
 fun validateForm(insertUiEvent: InsertVendorUiEvent): Boolean {
     return insertUiEvent.namaVendor.isNotEmpty() &&
             insertUiEvent.jenisVendor.isNotEmpty() &&
