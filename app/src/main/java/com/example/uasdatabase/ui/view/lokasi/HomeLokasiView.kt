@@ -28,6 +28,40 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.HomeLokasiViewModel
 
 
 
+@Composable
+fun HomeLokasiStatus(
+    lokasiUiState: HomeUiStateLokasi,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteLokasi: (Int) -> Unit,
+    onEditLokasi: (Int) -> Unit,
+    onDetailLokasi: (Int) -> Unit
+) {
+    when (lokasiUiState) {
+        is HomeUiStateLokasi.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+        is HomeUiStateLokasi.Success -> {
+            if (lokasiUiState.lokasi.isEmpty()) {
+                Box(
+                    modifier = modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Tidak ada data Lokasi")
+                }
+            } else {
+                LokasiLayout(
+                    lokasi = lokasiUiState.lokasi,
+                    modifier = modifier.fillMaxWidth(),
+                    onDetailLokasi = onDetailLokasi,
+                    onDeleteClick = onDeleteLokasi,
+                    onEditLokasi = onEditLokasi
+                )
+            }
+        }
+
+        is HomeUiStateLokasi.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
 
 @Composable
 fun OnLoading(modifier: Modifier = Modifier) {
