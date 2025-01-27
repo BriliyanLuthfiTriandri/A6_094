@@ -2,6 +2,7 @@
 
 1. Tampilan Utama
 
+<img width="221" alt="" src="https://github.com/user-attachments/assets/13ff58ed-ad4b-4e0a-93dd-e4792b4d376d" />
 ![ss home utama](https://github.com/user-attachments/assets/13ff58ed-ad4b-4e0a-93dd-e4792b4d376d)
 
 2. Tampilan Menu
@@ -11,7 +12,11 @@
 
 3. Tampilan Acara
 
-![ss home utama](https://github.com/user-attachments/assets/a7eea3d7-3188-4bbd-85e4-b7a400351fd9) ![ss entry acara + validasi](https://github.com/user-attachments/assets/c20504da-ca1e-4d4a-9607-a054f6a8d701) ![ss detail acara](https://github.com/user-attachments/assets/16ec2ed4-7763-4ee4-8060-6a65a67d56a0) ![ss update acara](https://github.com/user-attachments/assets/60d8c707-267b-4719-a5e1-9ad26a3cb9d5) ![ss delete acara](https://github.com/user-attachments/assets/49325df0-afc8-4c30-8cb2-a0a5046ef195)
+![ss home utama](https://github.com/user-attachments/assets/a7eea3d7-3188-4bbd-85e4-b7a400351fd9) 
+![ss entry acara + validasi](https://github.com/user-attachments/assets/c20504da-ca1e-4d4a-9607-a054f6a8d701) 
+![ss detail acara](https://github.com/user-attachments/assets/16ec2ed4-7763-4ee4-8060-6a65a67d56a0) 
+![ss update acara](https://github.com/user-attachments/assets/60d8c707-267b-4719-a5e1-9ad26a3cb9d5) 
+![ss delete acara](https://github.com/user-attachments/assets/49325df0-afc8-4c30-8cb2-a0a5046ef195)
 
 4. Tampilan Vendor
 
