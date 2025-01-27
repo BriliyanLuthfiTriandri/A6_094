@@ -26,7 +26,12 @@ import com.example.uasdatabase.ui.navigation.AlamatNavigasi
 import com.example.uasdatabase.ui.viewmodel.PenyediaViewModel
 import com.example.uasdatabase.ui.viewmodel.lokasi.DetailLokasiViewModel
 
-
+object DestinasiDetailLokasi : AlamatNavigasi {
+    override val route = "detaillokasi"
+    override val titleRes = "Detail Lokasi"
+    const val ID_LOKASI = "id_lokasi"
+    val routeWithArg = "$route/{$ID_LOKASI}"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
