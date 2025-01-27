@@ -52,6 +52,56 @@ import com.example.uasdatabase.ui.viewmodel.vendor.HomeVendorViewModel
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreenVendor(
+    navigateToItemEntryVendor: () -> Unit,
+    navigateBack: () -> Unit,
+    navigateToEditVendor: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailVendor: (Int) -> Unit = {},
+    viewModel: HomeVendorViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomeVendor.titleRes,
+                canNavigateBack = true,
+                showMenu = false,
+                showRefresh = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getVendor()
+                },
+                navigateUp = navigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntryVendor,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp),
+                containerColor = Color(0xFFFF91A4),
+                contentColor = Color.White
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Vendor")
+            }
+        },
+    ) { innerPadding ->
+        HomeVendorStatus(
+            vendorUiState = viewModel.vendorUIState,
+            retryAction = { viewModel.getVendor() },
+            modifier = Modifier.padding(innerPadding),
+            onDetailVendor = onDetailVendor,
+            onDeleteVendor = { vendorId -> viewModel.deleteVendor(vendorId) },
+            onEditVendor = navigateToEditVendor
+        )
+    }
+}
+
+
 
 @Composable
 fun HomeVendorStatus(
