@@ -27,6 +27,55 @@ import com.example.uasdatabase.ui.viewmodel.klien.HomeUiStateKlien
 import com.example.uasdatabase.ui.viewmodel.klien.HomeKlienViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreenKlien(
+    navigateToItemEntryKlien: () -> Unit,
+    navigateBack: () -> Unit,
+    navigateToItemDetailKlien: (Int) -> Unit,
+    navigateToEditKlien: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: HomeKlienViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomeKlien.titleRes,
+                canNavigateBack = true,
+                showMenu = false,
+                showRefresh = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getKlien()
+                },
+                navigateUp = navigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntryKlien,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp),
+                containerColor = Color(0xFFFF91A4),
+                contentColor = Color.White
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Klien")
+            }
+        },
+    ) { innerPadding ->
+        HomeKlienStatus(
+            klienUiState = viewModel.klienUIState,
+            retryAction = { viewModel.getKlien() },
+            modifier = Modifier.padding(innerPadding),
+            onDetailKlien = { klienId -> navigateToItemDetailKlien(klienId) },
+            onDeleteKlien = { klienId -> viewModel.deleteKlien(klienId) },
+            onEditKlien = { id_klien -> navigateToEditKlien(id_klien) }
+        )
+    }
+}
+
 
 @Composable
 fun HomeKlienStatus(
