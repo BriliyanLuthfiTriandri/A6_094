@@ -51,6 +51,37 @@ import com.example.uasdatabase.ui.viewmodel.vendor.HomeUiStateVendor
 import com.example.uasdatabase.ui.viewmodel.vendor.HomeVendorViewModel
 
 
+
+
+
+@Composable
+fun OnLoading(modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier.size(200.dp),
+        painter = painterResource(R.drawable.loading),
+        contentDescription = stringResource(R.string.loading)
+    )
+}
+
+@Composable
+fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.error), contentDescription = ""
+        )
+        Text(
+            text = stringResource(R.string.loading_failed),
+            modifier = Modifier.padding(16.dp)
+        )
+        Button(onClick = retryAction) {
+            Text(stringResource(R.string.retry))
+        }
+    }
+}
+
 @Composable
 fun VendorLayout(
     vendors: List<Vendor>,
