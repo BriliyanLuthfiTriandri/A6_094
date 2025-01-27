@@ -47,6 +47,51 @@ import com.example.uasdatabase.ui.viewmodel.vendor.InsertVendorViewModel
 import kotlinx.coroutines.launch
 
 
+@Composable
+fun EntryVendorBody(
+    insertUiState: InsertVendorUiState,
+    onVendorValueChange: (InsertVendorUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var formValid by remember { mutableStateOf(true) }
+    var showValidationMessage by remember { mutableStateOf(false) }
+
+    val isFormValid = validateForm(insertUiState.insertUiEvent)
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ) {
+        FormVendorInput(
+            insertUiEvent = insertUiState.insertUiEvent,
+            onValueChange = onVendorValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            isFormValid = isFormValid,
+            showValidationMessage = showValidationMessage
+        )
+
+        Button(
+            onClick = {
+                if (isFormValid) {
+                    onSaveClick()
+                } else {
+                    formValid = false
+                    showValidationMessage = true
+                }
+            },
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF91A4),
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = "Simpan")
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormVendorInput(
