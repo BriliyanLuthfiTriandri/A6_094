@@ -28,6 +28,35 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.HomeLokasiViewModel
 
 
 
+
+@Composable
+fun OnLoading(modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier.size(200.dp),
+        painter = painterResource(R.drawable.loading),
+        contentDescription = "Loading"
+    )
+}
+
+@Composable
+fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.error), contentDescription = ""
+        )
+        Text(
+            text = "Failed to load data",
+            modifier = Modifier.padding(16.dp)
+        )
+        Button(onClick = retryAction) {
+            Text("Retry")
+        }
+    }
+}
+
 @Composable
 fun LokasiLayout(
     lokasi: List<Lokasi>,
