@@ -41,6 +41,51 @@ import kotlinx.coroutines.launch
 
 
 
+@Composable
+fun EntryAcaraBody(
+    insertUiState: InsertAcaraUiState,
+    onAcaraValueChange: (InsertAcaraUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var formValid by remember { mutableStateOf(true) }
+    var showValidationMessage by remember { mutableStateOf(false) }
+
+    val isFormValid = validateFormAcara(insertUiState.insertUiEvent)
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ) {
+        FormAcaraInput(
+            insertUiEvent = insertUiState.insertUiEvent,
+            onValueChange = onAcaraValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            isFormValid = isFormValid,
+            showValidationMessage = showValidationMessage
+        )
+
+        Button(
+            onClick = {
+                if (isFormValid) {
+                    onSaveClick()
+                } else {
+                    formValid = false
+                    showValidationMessage = true
+                }
+            },
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF91A4),
+                contentColor = Color.White
+            )
+        ) {
+            Text(text = "Simpan")
+        }
+    }
+}
+
 fun validateFormAcara(insertUiEvent: InsertAcaraUiEvent): Boolean {
     return insertUiEvent.nama_acara.isNotEmpty() &&
             insertUiEvent.deskripsi_acara.isNotEmpty() &&
