@@ -40,6 +40,17 @@ import com.example.uasdatabase.ui.viewmodel.acara.InsertAcaraViewModel
 import kotlinx.coroutines.launch
 
 
+
+fun validateFormAcara(insertUiEvent: InsertAcaraUiEvent): Boolean {
+    return insertUiEvent.nama_acara.isNotEmpty() &&
+            insertUiEvent.deskripsi_acara.isNotEmpty() &&
+            insertUiEvent.tanggal_mulai.isNotEmpty() &&
+            insertUiEvent.tanggal_berakhir.isNotEmpty() &&
+            insertUiEvent.id_klien > 0 &&
+            insertUiEvent.id_lokasi > 0 &&
+            insertUiEvent.status_acara.isNotEmpty()
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormAcaraInput(
