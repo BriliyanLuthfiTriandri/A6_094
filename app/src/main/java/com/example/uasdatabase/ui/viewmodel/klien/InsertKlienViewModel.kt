@@ -11,6 +11,13 @@ import kotlinx.coroutines.launch
 
 
 
+fun InsertKlienUiEvent.toKlien(): Klien = Klien(
+    id_klien = 0,
+    nama_klien = nama_klien,
+    email_klien = email_klien,
+    notlp_klien = notlp_klien
+)
+
 fun Klien.toUiStateKlien(): InsertKlienUiState = InsertKlienUiState(
     insertUiEvent = toInsertKlienUiEvent()
 )
