@@ -26,6 +26,10 @@ import com.example.uasdatabase.ui.viewmodel.PenyediaViewModel
 import com.example.uasdatabase.ui.viewmodel.klien.HomeUiStateKlien
 import com.example.uasdatabase.ui.viewmodel.klien.HomeKlienViewModel
 
+object DestinasiHomeKlien : AlamatNavigasi {
+    override val route = "homeklien"
+    override val titleRes = " Home Klien"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
