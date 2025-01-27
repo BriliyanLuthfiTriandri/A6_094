@@ -37,6 +37,70 @@ import com.example.uasdatabase.ui.viewmodel.acara.HomeUiStateAcara
 import com.example.uasdatabase.ui.viewmodel.acara.HomeAcaraViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreenAcara(
+    navigateToItemEntryAcara: () -> Unit,
+    navigateBack: () -> Unit,
+    navigateToItemDetailAcara: (Int) -> Unit,
+    navigateToEditAcara: (Int) -> Unit,
+    navigateToHome: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: HomeAcaraViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    val gradient = Brush.verticalGradient(
+        colors = listOf(
+            Color(0xFFFF91A4),
+            Color(0xFFD3D3D3),
+            Color(0xFF8D6E63)
+        )
+    )
+
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomeAcara.titleRes,
+                canNavigateBack = false,
+                showMenu = true,
+                showRefresh = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getAcara()
+                },
+                navigateUp = navigateBack,
+                onMenuClick = navigateToHome
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntryAcara,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp),
+                containerColor = Color(0xFFFF91A4),
+                contentColor = Color.White
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Acara")
+            }
+        },
+    ) { innerPadding ->
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(gradient)) {
+
+            HomeAcaraStatus(
+                acaraUiState = viewModel.acaraUIState,
+                retryAction = { viewModel.getAcara() },
+                modifier = Modifier.padding(innerPadding),
+                onDetailAcara = { acaraId -> navigateToItemDetailAcara(acaraId) },
+                onDeleteAcara = { acaraId -> viewModel.deleteAcara(acaraId) },
+                onEditAcara = { id_acara -> navigateToEditAcara(id_acara) }
+            )
+        }
+    }
+}
 
 @Composable
 fun HomeAcaraStatus(
