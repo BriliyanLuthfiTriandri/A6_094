@@ -41,7 +41,10 @@ import com.example.uasdatabase.ui.viewmodel.klien.InsertKlienUiState
 import com.example.uasdatabase.ui.viewmodel.klien.InsertKlienViewModel
 import kotlinx.coroutines.launch
 
-
+object DestinasiEntryKlien : AlamatNavigasi {
+    override val route = "itemklien"
+    override val titleRes = "Entry Klien"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
