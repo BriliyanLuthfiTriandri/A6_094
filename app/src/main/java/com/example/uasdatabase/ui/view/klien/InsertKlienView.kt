@@ -41,6 +41,14 @@ import com.example.uasdatabase.ui.viewmodel.klien.InsertKlienUiState
 import com.example.uasdatabase.ui.viewmodel.klien.InsertKlienViewModel
 import kotlinx.coroutines.launch
 
+
+
+fun validateForm(insertUiEvent: InsertKlienUiEvent): Boolean {
+    return insertUiEvent.nama_klien.isNotEmpty() &&
+            insertUiEvent.email_klien.isNotEmpty() &&
+            insertUiEvent.notlp_klien.isNotEmpty()
+}
+
 @Composable
 fun EntryKlienBody(
     insertUiState: InsertKlienUiState,
