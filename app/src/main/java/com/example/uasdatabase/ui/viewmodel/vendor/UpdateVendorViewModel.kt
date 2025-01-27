@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.uasdatabase.model.Vendor
 import com.example.uasdatabase.repository.VendorRepository
 import com.example.uasdatabase.ui.view.vendor.DestinasiUpdateVendor
 import kotlinx.coroutines.launch
