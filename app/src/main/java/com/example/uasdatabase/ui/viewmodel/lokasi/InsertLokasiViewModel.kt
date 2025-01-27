@@ -10,6 +10,10 @@ import com.example.uasdatabase.repository.LokasiRepository
 import kotlinx.coroutines.launch
 
 
+data class InsertLokasiUiState(
+    val insertUiEvent: InsertLokasiUiEvent = InsertLokasiUiEvent(),
+)
+
 data class InsertLokasiUiEvent(
     val id_lokasi: Int = 0,
     val nama_lokasi: String = "",
