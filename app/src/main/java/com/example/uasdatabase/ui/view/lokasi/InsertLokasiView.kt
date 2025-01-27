@@ -25,6 +25,47 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.InsertLokasiViewModel
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryLokasiScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertLokasiViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = "Entry Lokasi",
+                canNavigateBack = true,
+                showMenu = false,
+                showRefresh = true,
+                scrollBehavior = scrollBehavior,
+                navigateUp = navigateBack
+            )
+        }
+    ) { innerPadding ->
+        EntryLokasiBody(
+            insertUiState = viewModel.uiState,
+            onLokasiValueChange = viewModel::updateInsertLokasiState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    if (validateForm(viewModel.uiState.insertUiEvent)) {
+                        viewModel.insertLokasi()
+                        navigateBack()
+                    }
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
+
 fun validateForm(insertUiEvent: InsertLokasiUiEvent): Boolean {
     return insertUiEvent.nama_lokasi.isNotEmpty() &&
             insertUiEvent.alamat_lokasi.isNotEmpty() &&
