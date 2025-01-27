@@ -40,6 +40,47 @@ import com.example.uasdatabase.ui.viewmodel.acara.InsertAcaraViewModel
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryAcaraScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertAcaraViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    val uiState = viewModel.uiState
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = "Entry Acara",
+                canNavigateBack = true,
+                showMenu = false,
+                showRefresh = true,
+                scrollBehavior = scrollBehavior,
+                navigateUp = navigateBack
+            )
+        }
+    ) { innerPadding ->
+        EntryAcaraBody(
+            insertUiState = uiState,
+            onAcaraValueChange = viewModel::updateInsertAcaraState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.insertAcara()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth(),
+        )
+    }
+}
 
 @Composable
 fun EntryAcaraBody(
