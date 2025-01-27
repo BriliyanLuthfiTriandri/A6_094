@@ -43,7 +43,7 @@ data class InsertVendorUiEvent(
 )
 
 fun InsertVendorUiEvent.toVendor(): Vendor = Vendor(
-    idVendor = idVendor, // Memastikan idVendor diteruskan dengan benar
+    idVendor = idVendor,
     namaVendor = namaVendor,
     jenisVendor = jenisVendor,
     emailVendor = emailVendor,
@@ -55,7 +55,7 @@ fun Vendor.toUiStateVendor(): InsertVendorUiState = InsertVendorUiState(
 )
 
 fun Vendor.toInsertVendorUiEvent(): InsertVendorUiEvent = InsertVendorUiEvent(
-    idVendor = idVendor, // Memastikan idVendor diteruskan dengan benar
+    idVendor = idVendor,
     namaVendor = namaVendor,
     jenisVendor = jenisVendor,
     emailVendor = emailVendor,
