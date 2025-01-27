@@ -39,6 +39,10 @@ import com.example.uasdatabase.ui.viewmodel.acara.InsertAcaraUiState
 import com.example.uasdatabase.ui.viewmodel.acara.InsertAcaraViewModel
 import kotlinx.coroutines.launch
 
+object DestinasiEntryAcara : AlamatNavigasi {
+    override val route = "itemacara"
+    override val titleRes = "Entry Acara"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
