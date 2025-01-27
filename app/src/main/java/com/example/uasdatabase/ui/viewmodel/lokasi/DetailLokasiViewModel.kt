@@ -11,6 +11,17 @@ import com.example.uasdatabase.repository.LokasiRepository
 import kotlinx.coroutines.launch
 
 
+
+data class DetailLokasiUiState(
+    val detailUiEvent: InsertLokasiUiEvent = InsertLokasiUiEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = ""
+) {
+    val isUiEventNotEmpty: Boolean
+        get() = detailUiEvent != InsertLokasiUiEvent()
+}
+
 fun Lokasi.toDetailLokasiUiEvent(): InsertLokasiUiEvent {
     return InsertLokasiUiEvent(
         id_lokasi = id_lokasi,
