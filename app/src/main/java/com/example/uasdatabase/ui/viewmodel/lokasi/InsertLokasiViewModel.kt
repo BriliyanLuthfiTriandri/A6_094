@@ -9,7 +9,12 @@ import com.example.uasdatabase.model.Lokasi
 import com.example.uasdatabase.repository.LokasiRepository
 import kotlinx.coroutines.launch
 
-
+fun InsertLokasiUiEvent.toLokasi(): Lokasi = Lokasi(
+    id_lokasi = 0,
+    nama_lokasi = nama_lokasi,
+    alamat_lokasi = alamat_lokasi,
+    kapasitas = kapasitas
+)
 
 fun Lokasi.toUiStateLokasi(): InsertLokasiUiState = InsertLokasiUiState(
     insertUiEvent = toInsertLokasiUiEvent()
