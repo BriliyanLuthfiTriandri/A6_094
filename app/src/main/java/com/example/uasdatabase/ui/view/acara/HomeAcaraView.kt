@@ -37,6 +37,32 @@ import com.example.uasdatabase.ui.viewmodel.acara.HomeUiStateAcara
 import com.example.uasdatabase.ui.viewmodel.acara.HomeAcaraViewModel
 
 
+
+@Composable
+fun AcaraLayout(
+    acara: List<Acara>,
+    modifier: Modifier = Modifier,
+    onDetailAcara: (Int) -> Unit,
+    onDeleteAcara: (Int) -> Unit,
+    onEditAcara: (Int) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(acara) { acara ->
+            AcaraCard(
+                acara = acara,
+                onDeleteAcara = onDeleteAcara,
+                onEditAcara = onEditAcara,
+                onDetailAcara = onDetailAcara,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
 @Composable
 fun AcaraCard(
     acara: Acara,
