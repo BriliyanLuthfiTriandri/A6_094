@@ -29,6 +29,32 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.HomeLokasiViewModel
 
 
 @Composable
+fun LokasiLayout(
+    lokasi: List<Lokasi>,
+    modifier: Modifier = Modifier,
+    onDetailLokasi: (Int) -> Unit,
+    onDeleteClick: (Int) -> Unit,
+    onEditLokasi: (Int) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(lokasi) { lokasi ->
+            LokasiCard(
+                lokasi = lokasi,
+                onDeleteLokasi = onDeleteClick,
+                onEditLokasi = onEditLokasi,
+                onDetailLokasi = onDetailLokasi,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+
+@Composable
 fun LokasiCard(
     lokasi: Lokasi,
     onDeleteLokasi: (Int) -> Unit,
