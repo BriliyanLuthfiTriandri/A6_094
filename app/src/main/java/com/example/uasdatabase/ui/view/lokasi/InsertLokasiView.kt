@@ -25,6 +25,12 @@ import com.example.uasdatabase.ui.viewmodel.lokasi.InsertLokasiViewModel
 import kotlinx.coroutines.launch
 
 
+fun validateForm(insertUiEvent: InsertLokasiUiEvent): Boolean {
+    return insertUiEvent.nama_lokasi.isNotEmpty() &&
+            insertUiEvent.alamat_lokasi.isNotEmpty() &&
+            insertUiEvent.kapasitas.isNotEmpty()
+}
+
 @Composable
 fun EntryLokasiBody(
     insertUiState: InsertLokasiUiState,
