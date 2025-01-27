@@ -10,6 +10,15 @@ import com.example.uasdatabase.repository.AcaraRepository
 import kotlinx.coroutines.launch
 
 
+data class DetailAcaraUiState(
+    val detailUiEvent: InsertAcaraUiEvent = InsertAcaraUiEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = ""
+) {
+    val isUiEventNotEmpty: Boolean
+        get() = detailUiEvent != InsertAcaraUiEvent()
+}
 
 fun Acara.toDetailAcaraUiEvent(): InsertAcaraUiEvent {
     return InsertAcaraUiEvent(
