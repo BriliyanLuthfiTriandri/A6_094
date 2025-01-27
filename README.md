@@ -1,9 +1,9 @@
 --- Screenshot Hasil Tampilan ---
+![ss home utama](https://github.com/user-attachments/assets/2ae8bff4-d0e7-49a7-8bfd-53d3b68fa08b)
 
 1. Tampilan Utama
 
-<img width="221" alt="utama" src="![ss home utama](https://github.com/user-attachments/assets/13ff58ed-ad4b-4e0a-93dd-e4792b4d376d)
-"/>
+<img width="221" alt="utama" src="![ss home utama](https://github.com/user-attachments/assets/13ff58ed-ad4b-4e0a-93dd-e4792b4d376d)"/>
 
 2. Tampilan Menu
 
