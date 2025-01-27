@@ -10,7 +10,27 @@ import com.example.uasdatabase.model.Lokasi
 import com.example.uasdatabase.repository.LokasiRepository
 import kotlinx.coroutines.launch
 
+class DetailLokasiViewModel(private val lokasiRepository: LokasiRepository) : ViewModel() {
 
+    var uiState by mutableStateOf(DetailLokasiUiState())
+        private set
+
+    fun fetchDetailLokasi(idLokasi: Int) {
+        viewModelScope.launch {
+            uiState = DetailLokasiUiState(isLoading = true)
+            try {
+                val lokasiResponse = lokasiRepository.getLokasiById(idLokasi)
+                uiState = DetailLokasiUiState(detailUiEvent = lokasiResponse.data.toDetailLokasiUiEvent())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                uiState = DetailLokasiUiState(
+                    isError = true,
+                    errorMessage = "Failed to fetch lokasi details: ${e.message}"
+                )
+            }
+        }
+    }
+}
 
 data class DetailLokasiUiState(
     val detailUiEvent: InsertLokasiUiEvent = InsertLokasiUiEvent(),
