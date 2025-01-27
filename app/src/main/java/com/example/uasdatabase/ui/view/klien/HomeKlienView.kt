@@ -26,6 +26,32 @@ import com.example.uasdatabase.ui.viewmodel.PenyediaViewModel
 import com.example.uasdatabase.ui.viewmodel.klien.HomeUiStateKlien
 import com.example.uasdatabase.ui.viewmodel.klien.HomeKlienViewModel
 
+
+@Composable
+fun KlienLayout(
+    klien: List<Klien>,
+    modifier: Modifier = Modifier,
+    onDetailKlien: (Int) -> Unit,
+    onDeleteKlien: (Int) -> Unit,
+    onEditKlien: (Int) -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(klien) { klien ->
+            KlienCard(
+                klien = klien,
+                onDeleteKlien = onDeleteKlien,
+                onEditKlien = onEditKlien,
+                onDetailKlien = onDetailKlien,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
 @Composable
 fun KlienCard(
     klien: Klien,
