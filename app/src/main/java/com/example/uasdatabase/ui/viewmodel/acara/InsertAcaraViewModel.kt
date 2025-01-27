@@ -11,6 +11,18 @@ import kotlinx.coroutines.launch
 
 
 
+data class InsertAcaraUiEvent(
+    val id_acara: Int = 0,
+    val id_lokasi: Int = 0,
+    val id_klien: Int = 0,
+    val nama_acara: String = "",
+    val deskripsi_acara: String = "",
+    val tanggal_mulai: String = "",
+    val tanggal_berakhir: String = "",
+    val status_acara: String = "",
+
+)
+
 fun InsertAcaraUiEvent.toAcara(): Acara = Acara(
     id_acara = id_acara,
     id_lokasi = id_lokasi,
