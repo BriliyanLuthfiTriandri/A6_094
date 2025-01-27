@@ -27,6 +27,40 @@ import com.example.uasdatabase.ui.viewmodel.klien.HomeUiStateKlien
 import com.example.uasdatabase.ui.viewmodel.klien.HomeKlienViewModel
 
 
+
+@Composable
+fun HomeKlienStatus(
+    klienUiState: HomeUiStateKlien,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteKlien: (Int) -> Unit,
+    onEditKlien: (Int) -> Unit,
+    onDetailKlien: (Int) -> Unit
+) {
+    when (klienUiState) {
+        is HomeUiStateKlien.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+        is HomeUiStateKlien.Success -> {
+            if (klienUiState.klien.isEmpty()) {
+                Box(
+                    modifier = modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Tidak ada data Klien")
+                }
+            } else {
+                KlienLayout(
+                    klien = klienUiState.klien,
+                    modifier = modifier.fillMaxWidth(),
+                    onDetailKlien = onDetailKlien,
+                    onDeleteKlien = onDeleteKlien,
+                    onEditKlien = onEditKlien
+                )
+            }
+        }
+        is HomeUiStateKlien.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
 @Composable
 fun OnLoading(modifier: Modifier = Modifier) {
     Image(
