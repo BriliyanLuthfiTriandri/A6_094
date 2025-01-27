@@ -18,6 +18,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+object DestinasiUpdateAcara : AlamatNavigasi {
+    override val route = "updateacara"
+    override val titleRes = "Update Acara"
+    const val ID_ACARA = "id_acara"
+    val routesWithArg = "$route/{$ID_ACARA}"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
