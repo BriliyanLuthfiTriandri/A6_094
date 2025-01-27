@@ -11,6 +11,10 @@ import kotlinx.coroutines.launch
 
 
 
+fun Lokasi.toUiStateLokasi(): InsertLokasiUiState = InsertLokasiUiState(
+    insertUiEvent = toInsertLokasiUiEvent()
+)
+
 fun Lokasi.toInsertLokasiUiEvent(): InsertLokasiUiEvent = InsertLokasiUiEvent(
     id_lokasi = 0,
     nama_lokasi = nama_lokasi,
