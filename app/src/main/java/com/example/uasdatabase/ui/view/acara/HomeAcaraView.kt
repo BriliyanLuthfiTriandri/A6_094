@@ -37,6 +37,40 @@ import com.example.uasdatabase.ui.viewmodel.acara.HomeUiStateAcara
 import com.example.uasdatabase.ui.viewmodel.acara.HomeAcaraViewModel
 
 
+
+@Composable
+fun HomeAcaraStatus(
+    acaraUiState: HomeUiStateAcara,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteAcara: (Int) -> Unit,
+    onEditAcara: (Int) -> Unit,
+    onDetailAcara: (Int) -> Unit
+) {
+    when (acaraUiState) {
+        is HomeUiStateAcara.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+        is HomeUiStateAcara.Success -> {
+            if (acaraUiState.acara.isEmpty()) {
+                Box(
+                    modifier = modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "Tidak ada data Acara")
+                }
+            } else {
+                AcaraLayout(
+                    acara = acaraUiState.acara,
+                    modifier = modifier.fillMaxWidth(),
+                    onDetailAcara = onDetailAcara,
+                    onDeleteAcara = onDeleteAcara,
+                    onEditAcara = onEditAcara
+                )
+            }
+        }
+        is HomeUiStateAcara.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
 @Composable
 fun OnLoading(modifier: Modifier = Modifier) {
     Image(
